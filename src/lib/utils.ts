@@ -228,22 +228,31 @@ export const getBrands = async () => {
 }
 
 export const getCountriesData = async () => {
-    const res = await fetch(countriesBaseUrl)
-    return await res.json()
+    try {
+        const res = await fetch(countriesBaseUrl)
+        if (!res.ok) return []
+        return await res.json()
+    } catch (e) {
+        return []
+    }
 }
 
 export async function getRates() {
-	const res = await fetch("https://open.er-api.com/v6/latest/USD", {
-		// Revalidate every 12 hours (43200 seconds)
-		next: {revalidate: 86400},
-	});
-	
-	if (!res.ok) {
-		throw new Error("Failed to fetch currency rates");
+	try {
+		const res = await fetch("https://open.er-api.com/v6/latest/USD", {
+			// Revalidate every 12 hours (43200 seconds)
+			next: {revalidate: 86400},
+		});
+
+		if (!res.ok) {
+			return {}
+		}
+
+		const data = await res.json();
+		return data.rates;
+	} catch (e) {
+		return {}
 	}
-	
-	const data = await res.json();
-	return data.rates;
 }
 
 // export const getUserCountryName = async () => {
