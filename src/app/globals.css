@@ -1,0 +1,230 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        font-size: 16px;
+    }
+
+    @screen lg {
+        html {
+            font-size: 17px;
+        }
+    }
+
+    @screen 2xl {
+        html {
+            font-size: 18px;
+        }
+    }
+}
+
+
+@layer components {
+    .input {
+        @apply bg-transparent border-2 border-blue-700 cursor-pointer rounded-full drop-shadow-md w-full duration-300 hover:bg-blue-100 focus:bg-blue-200 focus:text-blue-900 md:text-base p-2
+    }
+
+    .form-input {
+        @apply border-2 border-blue-700 focus:ring-2 focus:ring-offset-2 focus:ring-blue-300 rounded bg-transparent font-semibold text-blue-800 md:text-base
+    }
+
+    .btn {
+        @apply bg-blue-700 py-2 text-blue-50 mt-4 rounded cursor-pointer uppercase animate-cta font-semibold md:font-bold transition-all ease-in focus:ring-offset-2 focus:ring-2 focus:ring-blue-400 border-0
+    }
+
+    .h2 {
+        @apply text-2xl md:text-3xl font-bold text-blue-500 text-center py-6 uppercase
+    }
+
+    .mob-nav {
+        @apply block items-center text-blue-700 hover:bg-blue-100 hover:px-1 focus:text-amber-500 transition-all ease-in active:text-orange-600 rounded
+    }
+
+    .step {
+        @apply text-amber-700 font-bold text-center uppercase lg:text-left
+    }
+
+    .error-text {
+        @apply text-red-500 font-bold
+    }
+
+    .success-text {
+        @apply text-green-600 font-bold
+    }
+
+    .cta {
+        @apply text-blue-700 focus:text-amber-500 text-center my-2 rounded w-1/4 block py-2 ml-auto animate-cta shadow-2xl
+    }
+
+    .animate-cta {
+        @apply hover:text-orange-900 transition-colors ease-in shadow hover:bg-orange-300
+    }
+
+    .car-grid p {
+        @apply px-2
+    }
+
+    .error-message {
+        @apply text-red-700 bg-red-100 border border-red-300 rounded-md p-4 my-4 font-bold
+    }
+}
+
+/*.footer-grid {*/
+/*    display: grid;*/
+/*    grid-template-columns: [logo-start] minmax(100px, 1fr) [logo-end location-start]*/
+/*    1fr [location-end tel-start] 1fr [tel-end social-start] 1fr [social-end links-start] 1fr [links-end]*/
+/*;*/
+/*}*/
+
+/*.logo {*/
+/*    grid-column: logo;*/
+/*}*/
+
+/*.location {*/
+/*    grid-column: location;*/
+/*}*/
+
+/*.tel {*/
+/*    grid-column: tel;*/
+/*}*/
+
+
+.product-grid {
+    display: grid;
+    grid-auto-flow: dense;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 100px), 1fr));
+    grid-template-rows: repeat(auto-fill, auto);
+    container-type: inline-size;
+}
+
+.product {
+    --padding: 1rem;
+    grid-row: span 3;
+    display: grid;
+    grid-template-rows: subgrid;
+    gap: 1rem;
+    overflow: hidden;
+}
+
+/* Ensure two columns at minimum */
+@media (max-width: 640px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr); /* Force two columns on small screens */
+    }
+}
+
+.content-grid {
+    --padding-inline: 1rem;
+    --content-max-width: 1224px;
+    --breakout-max-width: 2400px;
+
+    --breakout-size: calc(
+            (var(--breakout-max-width) - var(--content-max-width)) / 2
+    );
+
+    display: grid;
+    justify-content: center;
+    grid-template-columns:
+    [full-start] minmax(var(--padding-inline), 1fr)
+    [breakout-start] minmax(0, var(--breakout-size))
+    [content-start] min(
+            100% - (var(--padding-inline) * 2),
+            var(--content-max-width)
+    ) [content-end]
+    minmax(0, var(--breakout-size)) [breakout-end]
+    minmax(var(--padding-inline), 1fr) [full-end];
+}
+
+.content-grid > :not(.breakout, .full),
+.full > :not(.breakout, .full) {
+    grid-column: content;
+}
+
+.content-grid > .breakout {
+    grid-column: breakout;
+}
+
+.content-grid > .full {
+    grid-column: full;
+
+    display: grid;
+    grid-template-columns: inherit;
+}
+
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.car {
+    display: flex; /* Ensures the car container expands to fill the available space */
+    flex-direction: column; /* Stacks grid items vertically */
+}
+
+/* Add this to your CSS or styles module */
+.alert {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 0.25rem;
+}
+
+.alert-success {
+    background-color: #d1f5d1; /* Light green background for success */
+    color: #107c10; /* Dark green text color for success */
+}
+
+.alert-error {
+    background-color: #f8d7da; /* Light red background for error */
+    color: #721c24; /* Dark red text color for error */
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.animate-marquee {
+    animation: marquee 18s linear infinite;
+}
+
+/* In your main CSS file (e.g., global.css) */
+.bg-noise {
+    /* Replace with your actual path to a repeating noise image */
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#noiseFilter)" opacity="0.1"/></svg>');
+    background-size: cover;
+    opacity: 0.2; /* Adjust for intensity */
+    pointer-events: none;
+}
+
+@keyframes heart-burst {
+    0% {
+        transform: scale(0.3);
+        opacity: 0.6;
+    }
+    50% {
+        transform: scale(1.4);
+        opacity: 0.3;
+    }
+    100% {
+        transform: scale(1.8);
+        opacity: 0;
+    }
+}
+
+.animate-heart-burst {
+    animation: heart-burst 0.4s ease-out;
+    background: rgba(239,68, 68, 0.25);
+}
+

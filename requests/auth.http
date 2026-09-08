@@ -1,0 +1,9 @@
+POST https://api.japanauto.io/auth/token
+Content-Type: application/json
+
+{
+  "email": "sonador@sonadormotors.jp",
+  "password": "Eddie09048508833"
+}
+
+###
